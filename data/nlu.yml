@@ -1,0 +1,167 @@
+version: "3.1"
+
+nlu:
+- intent: greet
+  examples: |
+    - hello
+    - hi
+    - hey
+    - good morning
+    - good evening
+    - hey there
+    - hello bot
+    - hi chatbot
+    - hey AI
+
+- intent: goodbye
+  examples: |
+    - goodbye
+    - bye
+    - see you later
+    - take care
+    - see you
+    - talk to you later
+    - end conversation
+    - stop chat
+    - exit chat
+    - stop
+
+- intent: topic
+  examples: |
+    - tell me about [transformers](topic)
+    - I want to know about [rockets](topic)
+    - Explain [photosynthesis](topic)
+    - Give me information about [solar energy](topic)
+    - Can you explain [quantum mechanics](topic)?
+    - I need details on [machine learning](topic)
+    - What can you tell me about [climate change](topic)?
+    - Provide an overview of [artificial intelligence](topic)
+    - I'd like to learn about [blockchain](topic)
+    - Share some insights on [neural networks](topic)
+    - teach me about [biology](topic)
+    - what is [python programming](topic)?
+    - describe [black holes](topic)
+    - explain how [DNA](topic) works
+    - tell me the basics of [quantum computing](topic)
+    - what are [semiconductors](topic)?
+    - help me understand [blockchain technology](topic)
+    - what's [machine learning](topic) all about?
+    - can you explain [renewable energy](topic)?
+    - I want to learn [data science](topic)
+    - what is [sun](topic)?
+    - tell me about [water](topic)
+    - explain what is [electricity](topic)
+    - what are [planets](topic)?
+    - tell me about [earth](topic)
+    - what is [moon](topic)?
+    - explain [gravity](topic)
+    - what are [stars](topic)?
+    - tell me about [oceans](topic)
+    - what is [magnetism](topic)?
+    - explain how [internet](topic) works
+    - what are [volcanoes](topic)?
+    - tell me about [mountains](topic)
+    - what is [weather](topic)?
+    - explain [rainbows](topic)
+    - what are [clouds](topic)?
+    - tell me about [trees](topic)
+    - what is [wind](topic)?
+    - explain [seasons](topic)
+    - what are [minerals](topic)?
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - am I speaking to a bot?
+    - what are you?
+    - are you human?
+    - are you a real person?
+    - is this a bot?
+
+- intent: ask_for_help
+  examples: |
+    - help
+    - I need help
+    - can you help me?
+    - I need assistance
+    - could you assist me?
+    - I need some help
+    - can you assist me?
+    - I need your help
+    - please help me understand
+    - can you explain something?
+    - I want to learn about something
+    - could you teach me?
+    - I'd like to understand
+    - help me learn
+    - I want to know more
+    - can you guide me?
+    - I need guidance
+    - please assist me
+    - would you help me?
+    - I'm looking for information
+    - can you provide information?
+    - I want to study
+    - help me understand
+    - I'm trying to learn
+    - could you explain?
+    - please guide me
+    - I need some clarification
+    - can you clarify something?
+    - I'm curious about something
+    - help me explore a topic
+
+- intent: affirm
+  examples: |
+    - yes
+    - yes please
+    - sure
+    - yeah
+    - show me videos
+    - i would like to see videos
+    - yes show me videos
+    - yes i want videos
+
+- intent: deny
+  examples: |
+    - no
+    - nope
+    - don't show videos
+    - no videos
+    - not interested
+    - skip it
+    - not now
+    - maybe later
+
+
+- intent: quiz_yes
+  examples: |
+    - yes i want to take the quiz
+    - sure let's do the quiz
+    - quiz me
+    - test my knowledge
+    - yes quiz
+    - let's start the quiz
+    - ready for quiz
+    - begin quiz
+
+
+- intent: quiz_no
+  examples: |
+    - no quiz
+    - skip quiz
+    - no test
+    - skip the quiz
+    - not interested in quiz
+    - no questions please
+
+- intent: answer_question
+  examples: |
+    - The answer is [answer]
+    - I think it's [answer]
+    - Maybe [answer]
+    - [answer]
+    - The solution is [answer]
+    - It should be [answer]
+    - This is [answer]
+    - My answer is [answer]
