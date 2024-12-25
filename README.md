@@ -60,7 +60,7 @@ This chatbot aims to make learning interactive, engaging, and tailored to the us
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/Chatbot-for-Personalized-Learning.git
+   git clone https://github.com/vermaaatul07/Chatbot_for_Personalized_Learning.git
    cd Chatbot-for-Personalized-Learning
    ```
 
