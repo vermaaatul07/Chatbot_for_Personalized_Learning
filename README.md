@@ -110,7 +110,7 @@ This chatbot aims to make learning interactive, engaging, and tailored to the us
 
 3. **Watch Recommended Videos:**
 
-   - The chatbot provides a list of relevant YouTube videos.
+   - The chatbot provides a couple of relevant YouTube videos.
    - Respond "yes" to receive the links.
 
 4. **Take a Quiz:**
