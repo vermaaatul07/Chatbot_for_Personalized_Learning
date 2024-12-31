@@ -1,13 +1,13 @@
 🤖 Chatbot for Personalized Learning
 An AI-powered educational assistant that provides personalized content and video recommendations to enhance the learning experience.
-🎯 Features {#features}
+🎯 Features
 
 Smart Content Generation: Leverages Hugging Face's google/flan-t5-large model for detailed responses
 Video Learning: Integrates YouTube API for topic-specific video recommendations
 Intelligent Conversations: Uses advanced NLU for context-aware interactions
 LMS Integration: Seamlessly connects with educational repositories
 
-🛠️ Tech Stack {#tech-stack}
+🛠️ Tech Stack
 
 Core: Python, RASA
 ML Model: Hugging Face Transformers (google/flan-t5-large)
@@ -15,7 +15,7 @@ API: YouTube Data API v3
 Deployment: Streamlit
 Development: Visual Studio Code
 
-⚙️ Installation {#installation}
+⚙️ Installation
 Prerequisites
 
 Python 3.8+
