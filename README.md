@@ -1,13 +1,13 @@
 🤖 Chatbot for Personalized Learning
 An AI-powered educational assistant that provides personalized content and video recommendations to enhance the learning experience.
-🎯 Features
+🎯 Features {#features}
 
 Smart Content Generation: Leverages Hugging Face's google/flan-t5-large model for detailed responses
 Video Learning: Integrates YouTube API for topic-specific video recommendations
 Intelligent Conversations: Uses advanced NLU for context-aware interactions
 LMS Integration: Seamlessly connects with educational repositories
 
-🛠️ Tech Stack
+🛠️ Tech Stack {#tech-stack}
 
 Core: Python, RASA
 ML Model: Hugging Face Transformers (google/flan-t5-large)
@@ -15,7 +15,7 @@ API: YouTube Data API v3
 Deployment: Streamlit
 Development: Visual Studio Code
 
-⚙️ Installation
+⚙️ Installation {#installation}
 Prerequisites
 
 Python 3.8+
@@ -39,7 +39,7 @@ echo "YOUTUBE_API_KEY=your_key_here" > .env
 
 # Train RASA model
 rasa train
-🚀 Deployment
+🚀 Deployment {#deployment}
 Local Development
 bashCopy# Install Streamlit
 pip install streamlit
@@ -75,13 +75,13 @@ Environment variables: YOUTUBE_API_KEY, RASA_API_ENDPOINT
 
 
 
-💡 Usage
+💡 Usage {#usage}
 
 Access the chatbot through your web browser
 Enter your learning topic or question
 Receive AI-generated explanations and curated video recommendations
 
-🤝 Contributing
+🤝 Contributing {#contributing}
 Pull requests are welcome! For major changes, please open an issue first to discuss proposed changes.
-📝 License
+📝 License {#license}
 MIT
