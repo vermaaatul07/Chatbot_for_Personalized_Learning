@@ -24,31 +24,13 @@ stories:
   steps:
   - intent: affirm
   - action: action_fetch_youtube_videos
-  - action: utter_ask_quiz
+  - action: utter_more_info
+  
 
 - story: video_flow_no
   steps:
   - intent: deny
-  - action: utter_ask_quiz
-
-- story: quiz_flow_yes
-  steps:
-  - intent: affirm
-  - action: action_generate_quiz
-
-- story: quiz_answer_validation
-  steps:
-  - intent: answer_question
-  - action: action_validate_answer
-  - action: action_generate_quiz
-  - intent: answer_question
-  - action: action_validate_answer
-  - action: utter_quiz_complete
-
-- story: quiz_flow_no
-  steps:
-  - intent: deny
-  - action: utter_goodbye
+  - action: utter_more_info
 
 - story: Direct topic request
   steps:
@@ -61,15 +43,7 @@ stories:
   - action: utter_ask_video
   - intent: affirm
   - action: action_fetch_youtube_videos
-  - action: utter_ask_quiz
-  - intent: quiz_yes
-  - action: action_generate_quiz
-  - intent: answer_question
-  - action: action_validate_answer
-  - action: action_generate_quiz
-  - intent: answer_question
-  - action: action_validate_answer
-  - action: utter_quiz_complete
+  - action: utter_more_info
 
 - story: Handle bot challenge
   steps:
@@ -85,3 +59,5 @@ stories:
   steps:
   - intent: nlu_fallback
   - action: utter_default
+
+   

@@ -133,35 +133,11 @@ nlu:
     - not now
     - maybe later
 
-
-- intent: quiz_yes
+- intent: who_created_you
   examples: |
-    - yes i want to take the quiz
-    - sure let's do the quiz
-    - quiz me
-    - test my knowledge
-    - yes quiz
-    - let's start the quiz
-    - ready for quiz
-    - begin quiz
-
-
-- intent: quiz_no
-  examples: |
-    - no quiz
-    - skip quiz
-    - no test
-    - skip the quiz
-    - not interested in quiz
-    - no questions please
-
-- intent: answer_question
-  examples: |
-    - The answer is [answer]
-    - I think it's [answer]
-    - Maybe [answer]
-    - [answer]
-    - The solution is [answer]
-    - It should be [answer]
-    - This is [answer]
-    - My answer is [answer]
+    - who made you?
+    - who created you?
+    - who is your creator?
+    - who developed you?
+    - who is your developer?
+    - who is your designer?

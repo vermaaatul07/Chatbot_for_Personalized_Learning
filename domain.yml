@@ -8,13 +8,10 @@ intents:
   - topic
   - affirm
   - deny
-  - quiz_yes
-  - quiz_no
-  - answer_question
+  - who_created_you
 
 entities:
   - topic
-  - answer
 
 
 slots:
@@ -25,31 +22,12 @@ slots:
       - type: from_entity
         entity: topic
 
-  current_question:
-    type: float
-    initial_value: 0.0
+
+  keywords:  # Add this new slot
+    type: list
     influence_conversation: false
     mappings:
       - type: custom
-
-  correct_answer:
-    type: text
-    influence_conversation: false
-    mappings:
-      - type: custom
-
-  explanation:
-    type: text
-    influence_conversation: false
-    mappings:
-      - type: custom
-
-  answer:
-    type: text
-    influence_conversation: false
-    mappings:
-      - type: from_entity
-        entity: answer
 
 responses:
   utter_greet:
@@ -57,24 +35,18 @@ responses:
   utter_ask_topic:
     - text: "What topic would you like to learn about?"
   utter_ask_video:
-    - text: "Would you like to see some related videos about {topic}?"
-  utter_ask_quiz:
-    - text: "Would you like to take a quick quiz about {topic}?"
-  utter_correct_answer:
-    - text: "That's correct! 🎉"
-  utter_quiz_complete:
-    - text: "Quiz completed! You've answered 2 questions. You have learned a lot today!"
-  utter_wrong_answer:
-    - text: "Not quite right. The correct answer is: {correct_answer}\n\nExplanation: {explanation}"
+    - text: "Would you like to see some videos related about {topic}?"
   utter_default:
     - text: "I'm sorry, I didn't understand that. Could you please rephrase?"
   utter_goodbye:
     - text: "Goodbye! Feel free to come back anytime."
   utter_iamabot:
     - text: "I am an AI assistant."  
+  utter_more_info:
+    - text: "If there is anything more u want to learn, please tell" 
+  utter_creator:
+    - text: "I was created by Shivam"   
 
 actions:
   - action_generate_content
   - action_fetch_youtube_videos
-  - action_generate_quiz
-  - action_validate_answer

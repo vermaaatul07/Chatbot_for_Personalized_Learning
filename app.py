@@ -1,3 +1,4 @@
+
 import streamlit as st
 import requests
 from datetime import datetime
@@ -179,22 +180,19 @@ if 'last_message_time' not in st.session_state:
     st.session_state.last_message_time = 0
 
 # Add sidebar content
-st.sidebar.markdown("""
-<div class="sidebar-info">
-    <h3>🎯 Interactive Learning</h3>
-    <p>Get personalized explanations for challenging topics and concepts</p>
-</div>
+sidebar_container = st.sidebar.container()
+with sidebar_container:
+    st.markdown("""
+    <div class="sidebar-info" role="complementary" aria-label="Interactive Learning Section">
+        <h3>🎯 Interactive Learning</h3>
+        <p>Get personalized explanations for challenging topics and concepts</p>
+    </div>
 
-<div class="sidebar-info">
-    <h3>📚 Resource Recommendations</h3>
-    <p>Discover curated YouTube videos for better understanding </p>
-</div>
-
-<div class="sidebar-info">
-    <h3>📝 Knowledge Check</h3>
-    <p>Test your understanding with interactive quizz</p>
-</div>
-""", unsafe_allow_html=True)
+    <div class="sidebar-info" aria-label="Resource Recommendations Section">
+        <h3>📚 Resource Recommendations</h3>
+        <p>Discover curated YouTube videos for better understanding </p>
+    </div>
+    """, unsafe_allow_html=True)
 
 st.markdown("""
 <style>

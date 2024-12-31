@@ -4,27 +4,6 @@
 # See this guide on how to implement these action:
 # https://rasa.com/docs/rasa/custom-actions
 
-
-# This is a simple example for a custom action which utters "Hello World!"
-
-# from typing import Any, Text, Dict, List
-#
-# from rasa_sdk import Action, Tracker
-# from rasa_sdk.executor import CollectingDispatcher
-#
-#
-# class ActionHelloWorld(Action):
-#
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#
-#         dispatcher.utter_message(text="Hello World!")
-#
-#         return []
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 from rasa_sdk import Action
 from rasa_sdk.events import SlotSet, ActionExecuted
@@ -119,6 +98,16 @@ class ActionFetchYoutubeVideos(Action):
     def __init__(self):
         self.youtube = build('youtube', 'v3', developerKey='AIzaSyDFkrvlDdNQd-aRtIq1w5Gh_jIZpDQeRHs')
 
+    def get_video_details(self, video_id):
+        try:
+            response = self.youtube.videos().list(
+                part='snippet,statistics,contentDetails',
+                id=video_id
+            ).execute()
+            return response['items'][0] if response['items'] else None
+        except Exception:
+            return None
+
     def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         try:
             topic = tracker.get_slot("topic")
@@ -126,86 +115,67 @@ class ActionFetchYoutubeVideos(Action):
                 dispatcher.utter_message(text="I need a topic to search for videos.")
                 return []
 
+            # Add educational keywords to search
+            search_query = f"{topic} tutorial how to learn"
+            
             search_response = self.youtube.search().list(
-                q=topic,
+                q=search_query,
                 part='snippet',
-                maxResults=2,
-                type='video'
+                maxResults=5,
+                type='video',
+                videoCategoryId='27',  # Education category
+                order='relevance',
+                safeSearch='moderate',
+                relevanceLanguage='en'
             ).execute()
 
             if not search_response.get('items'):
-                dispatcher.utter_message(text=f"Sorry, I couldn't find any videos about {topic}")
+                dispatcher.utter_message(text=f"Sorry, I couldn't find any tutorial videos about {topic}")
                 return []
 
             videos = []
             for item in search_response['items']:
                 video_id = item['id']['videoId']
-                title = item['snippet']['title']
-                url = f"https://www.youtube.com/watch?v={video_id}"
-                videos.append(f"{title}\n{url}")
+                details = self.get_video_details(video_id)
+                
+                if details:
+                    description = details['snippet']['description'].lower()
+                    # Check for educational indicators
+                    edu_terms = ['learn', 'tutorial', 'guide', 'course', 'lesson', 'example', 'explained']
+                    edu_score = sum(1 for term in edu_terms if term in description)
+                    
+                    if edu_score > 0:
+                        title = item['snippet']['title']
+                        channel = item['snippet']['channelTitle']
+                        url = f"https://www.youtube.com/watch?v={video_id}"
+                        views = int(details['statistics'].get('viewCount', 0))
+                        likes = int(details['statistics'].get('likeCount', 0))
+                        
+                        videos.append({
+                            'title': title,
+                            'channel': channel,
+                            'url': url,
+                            'edu_score': edu_score,
+                            'engagement': views + (likes * 100)
+                        })
 
-            dispatcher.utter_message(text=f"Here are 2 helpful videos about {topic}:\n\n" + "\n\n".join(videos))
-            return []  # Return immediately after sending videos
+            # Sort by educational score and engagement
+            videos.sort(key=lambda x: (x['edu_score'], x['engagement']), reverse=True)
+            top_videos = videos[:2]
+
+            if not top_videos:
+                dispatcher.utter_message(text=f"Sorry, I couldn't find any quality tutorial videos about {topic}")
+                return []
+
+            response = f"Here are 2 educational videos about {topic}:\n\n"
+            for video in top_videos:
+                response += f"📚 {video['title']}\n"
+                response += f"👤 Channel: {video['channel']}\n"
+                response += f"🔗 {video['url']}\n\n"
+
+            dispatcher.utter_message(text=response)
+            return []
 
         except HttpError as e:
             dispatcher.utter_message(text="Sorry, I couldn't fetch any videos at the moment.")
-            return []  # Return immediately after error
-    
-class ActionGenerateQuiz(Action):
-    def name(self) -> Text:
-        return "action_generate_quiz"
-
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        topic = tracker.get_slot("topic")
-        current_question = tracker.get_slot("current_question") or 0
-        
-        questions = [
-            {
-                "question": f"What is the main purpose of {topic}?",
-                "answer": "To solve problems",
-                "explanation": f"{topic} is primarily used to solve specific problems in its domain."
-            },
-            {
-                "question": f"What are the key components of {topic}?",
-                "answer": "Core elements",
-                "explanation": f"The key components help structure and organize {topic}."
-            },
-            {
-                "question": f"How is {topic} applied in real-world scenarios?",
-                "answer": "Practical applications",
-                "explanation": f"{topic} has various practical applications in industry and daily life."
-            }
-        ]
-        
-        if current_question < len(questions):
-            dispatcher.utter_message(text=questions[current_question]["question"])
-            return [SlotSet("current_question", current_question + 1),
-                   SlotSet("correct_answer", questions[current_question]["answer"]),
-                   SlotSet("explanation", questions[current_question]["explanation"])]
-        
-        return [SlotSet("current_question", 0)]
-
-class ActionValidateAnswer(Action):
-    def name(self) -> Text:  
-        return "action_validate_answer"    
-    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        user_answer = tracker.latest_message.get("text", "").lower()
-        correct_answer = tracker.get_slot("correct_answer").lower()
-        explanation = tracker.get_slot("explanation")
-        current_question = tracker.get_slot("current_question")
-        
-        # Clean up user answer
-        user_answer = user_answer.replace("the answer is", "").strip()
-        user_answer = user_answer.replace("i think", "").strip()
-        
-        # Check if answer contains key components
-        if any(word in user_answer for word in correct_answer.split()):
-            dispatcher.utter_message(text="That's correct! 🎉")
-        else:
-            dispatcher.utter_message(text=f"Not quite right. The correct answer is: {correct_answer}\nExplanation: {explanation}")
-        
-        if current_question >= 2:
-            dispatcher.utter_message(text="Quiz completed! You've answered 2 questions.")
-            return [SlotSet("current_question", 0)]
-        
-        return []
+            return []

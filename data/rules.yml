@@ -10,3 +10,8 @@ rules:
   steps:
   - intent: bot_challenge
   - action: utter_iamabot
+
+- rule: Say 'I am created by Shivam' anytime the user challenges
+  steps:
+  - intent: who_created_you
+  - action: utter_creator
