@@ -118,6 +118,17 @@ Bot: "Would you like to see some video resources?"
 User: "Yes"
 Bot: *Provides relevant YouTube links*
 ```
+## Project Screenshots
 
+### Image 1
+![Description for Image 1](image1.png)
+
+### Image 2
+![Description for Image 2](image2.png)
+
+### Image 3
+![Description for Image 3](image3.png)
 ## 📄 License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
