@@ -23,7 +23,7 @@ slots:
         entity: topic
 
 
-  keywords:  # Add this new slot
+  keywords: 
     type: list
     influence_conversation: false
     mappings:

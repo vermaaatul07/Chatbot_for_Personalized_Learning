@@ -14,9 +14,9 @@ stories:
   - action: utter_ask_topic
   - intent: topic
     entities:
-    - topic: "python"
+    - topic: "DevOps"
   - slot_was_set:
-    - topic: "python"
+    - topic: "DevOps"
   - action: action_generate_content
   - action: utter_ask_video
 
@@ -60,4 +60,3 @@ stories:
   - intent: nlu_fallback
   - action: utter_default
 
-   

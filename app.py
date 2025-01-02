@@ -159,6 +159,12 @@ css = '''
 #MainMenu { visibility: hidden; }
 footer { visibility: hidden; }
 header { visibility: hidden; }
+
+
+/* Grey text for "Thinking" */
+.grey-text {
+    color: grey;
+
 </style>
 '''
 
@@ -307,7 +313,7 @@ if st.session_state.last_message and not st.session_state.processing:
         current_chat['title'] = st.session_state.last_message[:30] + "..."
 
     try:
-        with st.spinner('Thinking...'):
+        with st.spinner('Thinking'):
             rasa_url = "http://localhost:5005/webhooks/rest/webhook"
             payload = {"sender": "user", "message": st.session_state.last_message}
             response = requests.post(rasa_url, json=payload)

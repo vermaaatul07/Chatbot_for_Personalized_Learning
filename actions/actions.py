@@ -56,6 +56,12 @@ class ActionGenerateContent(Action):
             dispatcher.utter_message(text="I couldn't find a topic. Can you please specify what you'd like to learn about?")
             return []
         
+        # Check if the topic is non-educational
+        non_educational_keywords = ["pizza", "food", "Infosys", "company", "movie", "celebrity", "sports", "music", "recipe", "travel", "fashion", "gossip", "weather", "news", "politics", "games", "shopping", "cars"]
+        if any(keyword in topic.lower() for keyword in non_educational_keywords):
+            dispatcher.utter_message(text="Sorry, I couldn't find this topic. Can you please ask some other topic that you'd like to learn about?")
+            return []
+        
         try:
             input_text = self.generate_prompt(topic)
             inputs = self.tokenizer(input_text, return_tensors="pt", max_length=1024, truncation=True)
