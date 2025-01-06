@@ -19,7 +19,7 @@ css = '''
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 .stApp {
-    background-color: #F9F7F7;
+    background-color: #ffffff; /* Background color */
 }
 
 .main .block-container {
@@ -29,6 +29,29 @@ css = '''
     margin-left: 300px;
     padding: 2.5rem;
 }
+
+ # Custom design of the new chat button
+ 
+# /* New Chat button styles */
+# .new-chat-button {
+#     background: linear-gradient(90deg, #1e90ff, #00bfff); /* Blue gradient */
+#     border: none;
+#     border-radius: 5px;
+#     color: white;
+#     padding: 10px 20px;
+#     font-size: 16px;
+#     font-weight: bold;
+#     text-transform: uppercase;
+#     cursor: pointer;
+#     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+#     transition: transform 0.2s, box-shadow 0.2s;
+# }
+# .new-chat-button:hover {
+#     transform: translateY(-2px);
+#     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+# }
+
+
 
 /* App header */
 .app-header {
@@ -49,17 +72,19 @@ css = '''
 .app-title {
     font-size: 1.5rem;
     font-weight: 600;
-    color: #1f2937;
+    color: #ffffff; /* Text color */
 }
 
 /* Chat history sidebar */
 [data-testid="stSidebar"] {
-    background-color: #DBE2EF;
+    background-color: #112E4D; /* Sidebar background color */
+    color: #ffffff; /* Sidebar text color */
 }
 
 .chat-history-sidebar {
-    background-color: #f8f9fa;
+    background-color: #1E3E62; /* Sidebar background color */
     padding: 1.5rem;
+    color: #ffffff; /* Sidebar text color */
 }
 
 .sidebar-header {
@@ -68,7 +93,8 @@ css = '''
     gap: 12px;
     margin-bottom: 1.5rem;
     padding-bottom: 1rem;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid #3c6aff50;
+    color: #ffffff; /* Sidebar header text color */
 }
 
 .chat-history-item {
@@ -108,18 +134,16 @@ css = '''
     line-height: 1.6;
     font-size: 0.95rem;
     position: relative;
+    background-color: #3c6aff50; /* Bubble background color */
+    color: #000000; /* Bubble text color */
 }
 
 .user-bubble {
-    background-color: #8AB6F9;
-    color: #1e40af;
     margin-left: auto;
     border-bottom-right-radius: 4px;
 }
 
 .bot-bubble {
-    background-color: #8AB6F9;
-    color: #1f2937;
     border-bottom-left-radius: 4px;
     border: 1px solid #e9ecef;
 }
@@ -129,9 +153,9 @@ css = '''
     border-radius: 12px;
     padding: 0.875rem 1rem 0.875rem 3rem;
     font-size: 0.95rem;
-    border: 1px solid #e5e7eb;
-    background-color: #CADCFC;
-    color: #1f2937;
+    border: 1px solid #000000; /* Input border color */
+    background-color: #1E3E62;
+    color: #ffffff; /* Input text color */
 }
 
 /* Sidebar info boxes */
@@ -141,11 +165,12 @@ css = '''
     border-radius: 8px;
     margin: 1rem 0;
     border: 1px solid #e9ecef;
+    color: #1E3E62; /* Sidebar info text color */
 }
 
 .sidebar-info h3 {
     font-size: 0.9rem;
-    color: #1e40af;
+    color: #1E3E62; /* Sidebar info header text color */
     margin-bottom: 0.5rem;
 }
 
@@ -160,10 +185,10 @@ css = '''
 footer { visibility: hidden; }
 header { visibility: hidden; }
 
-
 /* Grey text for "Thinking" */
 .grey-text {
     color: grey;
+}
 
 </style>
 '''
@@ -200,6 +225,13 @@ with sidebar_container:
     </div>
     """, unsafe_allow_html=True)
 
+#  # Add sidebar content
+# sidebar_container = st.sidebar.container()
+# with sidebar_container:
+#     st.markdown("""
+#     <button class="new-chat-button" onclick="handleNewChat()">New Chat</button>
+#     """, unsafe_allow_html=True)   
+
 st.markdown("""
 <style>
     .animated-logo {
@@ -219,23 +251,13 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Display chat sessions in sidebar with icons for each session
-for session in st.session_state.chat_sessions:
-   active_class = "active" if session['id'] == st.session_state.current_chat_id else ""
-   st.markdown(f"""
-   <div class="chat-history-item {active_class}" onclick="handleChatSelect({session['id']})">
-      <span class="chat-icon">💬</span> {session['title']}
-   </div>
-   """, unsafe_allow_html=True)
-st.markdown("</div></div>", unsafe_allow_html=True)
-
 # JavaScript for handling chat interactions
-st.markdown("""
-<script>
-function handleNewChat() { window.parent.postMessage({type:'newChat'}, '*'); }
-function handleChatSelect(id) { window.parent.postMessage({type:'selectChat', chatId:id}, '*'); }
-</script>
-""", unsafe_allow_html=True)
+# st.markdown("""
+# <script>
+# function handleNewChat() { window.parent.postMessage({type:'newChat'}, '*'); }
+# function handleChatSelect(id) { window.parent.postMessage({type:'selectChat', chatId:id}, '*'); }
+# </script>
+# """, unsafe_allow_html=True)
 
 def create_new_chat():
    new_id = len(st.session_state.chat_sessions)
@@ -341,7 +363,7 @@ if st.session_state.last_message and not st.session_state.processing:
         st.session_state.last_message = ""
         st.rerun()
 
-# Handle new chat button in sidebar
+# Handle new chat button in sidebar               #remove this for deleting default new chat button
 if st.sidebar.button("+ New Chat"):
     create_new_chat()
     st.rerun()
